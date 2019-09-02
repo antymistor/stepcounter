@@ -23,7 +23,7 @@ void CSN_Init(void);
 void DO_Init(void);
 void TIM2_Init(void);
 
-
+// CSN:PB5 DO:PB14 CLK:PA0 
 void SSI_init(void)
 {
 TIM2_Init();	

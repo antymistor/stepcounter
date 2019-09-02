@@ -33,3 +33,4 @@
 ..\obj\usart.o: ..\SYSTEM\usart\usart.h
 ..\obj\usart.o: D:\MyApp\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\usart.o: ..\HARDWARE\EXTI\exti.h
+..\obj\usart.o: ..\HARDWARE\STEPM\STEPM.h

@@ -2,7 +2,7 @@
 #include "delay.h"
 #include "usart.h"	  
 #include "exti.h"
-
+#include "STEPM.h"
 #if 1
 #pragma import(__use_no_semihosting)             
 //??????????         
@@ -16,6 +16,7 @@ u8 dectr[5];
 // Global information that can be used in main loop
 u8 modeflag=0;  //0:stopmode 1:forwardmode 2:backwardmode
 int D2Cover=0; //The distance to cover in the following peroid  Unit:mm
+u8 workspeed=1;
 
 struct __FILE 
 { 
@@ -108,31 +109,35 @@ void USART1_IRQHandler(void)
 			{ 
 			  D2Cover=((dectr[2]-'0')*100+(dectr[3]-'0')*10+(dectr[4]-'0'));
 				modeflag=1;
-//	      count_1=5000;
-//				count_2=1;
 				resetcounter();
 			}
 			else if(dectr[1]=='1')    //let motor A to cover distance of 'D2Cover' in backward direction
 			{ D2Cover=((dectr[2]-'0')*100+(dectr[3]-'0')*10+(dectr[4]-'0'));
 			  modeflag=2;
-//	      count_1=5000;
-//				count_2=1;
 				resetcounter();
 			}
 			else if(dectr[1]=='2')    //let it to stop motor A
 			{
 				modeflag=0;
 				D2Cover=0;
-//				count_1=5000;
-//				count_2=1;
 				resetcounter();
+				set_stepmotor(2,1);
 				printf("A2000");
 			}
 			else if(dectr[1]=='3')    //let it send the value of count_1 in this moment
 			{
-			  //printf("c%d",stepunit*count_1-(stepunit-1)*5000);
 				read_distance();
 				printf("c%d",(u16)(5000+covered_distance));
+			}
+			else if(dectr[1]=='4')   //let work arm be controlled manually
+			{
+				workspeed=(dectr[3]-'0')*10+(dectr[4]-'0');
+				set_stepmotor(dectr[2]-'0',workspeed);
+			}
+			else if(dectr[1]=='5')  //let work arm work automatically.
+			{
+				workspeed=(dectr[3]-'0')*10+(dectr[4]-'0');
+				set_stepmotor(dectr[2]-'0',workspeed);
 			}
 		}
 	}
