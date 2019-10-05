@@ -1,3 +1,4 @@
+
 #include "STEPM.h"
 #include "delay.h"
 #include "usart.h"
@@ -54,7 +55,7 @@ void EXTI3_IRQHandler(void)
 	delay_ms(1);
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3))
 	{
-  	GPIO_SetBits(GPIOA,GPIO_Pin_2);
+  	GPIO_ResetBits(GPIOA,GPIO_Pin_2);
 	}
   EXTI_ClearITPendingBit(EXTI_Line3); 
 }
@@ -65,7 +66,7 @@ void EXTI4_IRQHandler(void)
 	delay_ms(1);
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4))
 	{
-  	GPIO_ResetBits(GPIOA,GPIO_Pin_2);
+  	GPIO_SetBits(GPIOA,GPIO_Pin_2);
 	}
 
   EXTI_ClearITPendingBit(EXTI_Line4); 
@@ -92,8 +93,10 @@ void init_stepmotor(void)
 	GPIO_SetBits(GPIOA,GPIO_Pin_2);
 	
 	TIM_DeInit(TIM3);
-	TIM_TimeBaseStructure.TIM_Period=333;                
-  TIM_TimeBaseStructure.TIM_Prescaler=99;     
+	
+	
+	TIM_TimeBaseStructure.TIM_Period=200;                
+  TIM_TimeBaseStructure.TIM_Prescaler=999;     
   TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1; 
   TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; 
   TIM_TimeBaseStructure.TIM_RepetitionCounter = 0x0;
@@ -104,14 +107,17 @@ void init_stepmotor(void)
   TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;  
   TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Disable;    
   TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;    
-  TIM_OCInitStructure.TIM_Pulse=150;
+  TIM_OCInitStructure.TIM_Pulse=100;
   
   TIM_OC1Init(TIM3,&TIM_OCInitStructure);  
+	
+	
+	
 	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
   
 	TIM_Cmd(TIM3,DISABLE);
 	TIM_CtrlPWMOutputs(TIM3,ENABLE);
-	TIM_SetCompare1(TIM3,150);
+	TIM_SetCompare1(TIM3,100);
 }
 
 
@@ -121,20 +127,21 @@ void set_stepmotor(u8 sw,u8 speed)
 	if(speed){
 	if(!sw)
 	{
-		TIM3->PSC=(u16)(99/speed);
+		TIM3->PSC=(u16)(999/speed);
 		GPIO_SetBits(GPIOA,GPIO_Pin_2);
 		TIM_Cmd(TIM3,ENABLE);
 	}
 	else if(sw==1)
 	{
-		TIM3->PSC=(u16)(99/speed);
+		TIM3->PSC=(u16)(999/speed);
 		GPIO_ResetBits(GPIOA,GPIO_Pin_2);
 		TIM_Cmd(TIM3,ENABLE);
 	}
 	else
 	{
-//		TIM3->PSC=(u16)(99/speed);
-//		GPIO_SetBits(GPIOA,GPIO_Pin_2);
+		//TIM3->PSC=(u16)(99/speed);
+		//
+		GPIO_SetBits(GPIOA,GPIO_Pin_2);
 		TIM_Cmd(TIM3,DISABLE);
 	}
   }

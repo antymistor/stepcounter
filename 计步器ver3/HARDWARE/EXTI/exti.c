@@ -1,11 +1,10 @@
+
+
 #include "exti.h"
 #include "delay.h"
 #include "usart.h"
 #include "stm32f10x_rcc.h"
-
-
 #define direction_def 0     //define the positve direction of rotation, 0/1
-
 #define wheelradius 60      //define the radius of pedometer wheel, unit:mm
 const float tf_factor=wheelradius*3.1415926f/360;
 
@@ -99,7 +98,7 @@ void TIM2_Init(void)
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; 
 	TIM_OC1Init(TIM2, &TIM_OCInitStructure);  
 	TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable); 
-    TIM_SetCompare1(TIM2,500);
+  TIM_SetCompare1(TIM2,500);
 	 
 	TIM_Cmd(TIM2, ENABLE);  
 }

@@ -139,6 +139,8 @@ void USART1_IRQHandler(void)
 				workspeed=(dectr[3]-'0')*10+(dectr[4]-'0');
 				set_stepmotor(dectr[2]-'0',workspeed);
 			}
+	
+
 		}
 	}
 		

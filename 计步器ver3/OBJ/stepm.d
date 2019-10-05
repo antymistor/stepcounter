@@ -3,7 +3,7 @@
 ..\obj\stepm.o: ..\SYSTEM\sys\sys.h
 ..\obj\stepm.o: ..\USER\stm32f10x.h
 ..\obj\stepm.o: ..\CORE\core_cm3.h
-..\obj\stepm.o: D:\MyApp\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\stepm.o: D:\MYAPP\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\stepm.o: ..\USER\system_stm32f10x.h
 ..\obj\stepm.o: ..\USER\stm32f10x_conf.h
 ..\obj\stepm.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -32,4 +32,4 @@
 ..\obj\stepm.o: ..\STM32F10x_FWLib\inc\misc.h
 ..\obj\stepm.o: ..\SYSTEM\delay\delay.h
 ..\obj\stepm.o: ..\SYSTEM\usart\usart.h
-..\obj\stepm.o: D:\MyApp\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\stepm.o: D:\MYAPP\ARM\ARMCC\Bin\..\include\stdio.h

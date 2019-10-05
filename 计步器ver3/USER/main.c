@@ -23,8 +23,7 @@ u8 i=0;
 	delay_init();	    	 
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	uart_init(115200);	 
- 	SSI_init();
-	 
+ 	SSI_init(); 
 	initEXTI();
   init_stepmotor();
 	 
@@ -64,8 +63,7 @@ u8 i=0;
 	    printf("c%d",(u16)(5000+covered_distance));
 			delay_ms(steptime);
 			}
-			//resetcounter();
-			//printf("A2000");
+		
 		}
 		else if(modeflag==2)
 		{
@@ -89,24 +87,21 @@ u8 i=0;
 				speed_count=(int)(pre_distance-covered_distance);
 		    pre_distance=covered_distance;
 			}
-			
-			
+				
 			modeflag=0;
 			speed2run=0;
 			i=addedtime/steptime;
-			
+		
 			while(i--)
 			{
 			printf("A2000");
 			 printf("c%d",(u16)(5000+covered_distance));
 			delay_ms(steptime);
 			}
-//		resetcounter();
 		}
 		delay_ms(500);
 		read_distance();
-		 printf("c%d",(u16)(5000+covered_distance));
+		printf("c%d",(u16)(5000+covered_distance));
 	} 
 }
-
-
+ 
